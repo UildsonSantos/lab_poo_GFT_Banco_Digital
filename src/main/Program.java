@@ -4,6 +4,7 @@ import entities.Cliente;
 import entities.Conta;
 import entities.ContaCorrente;
 import entities.ContaPoupanca;
+import exceptions.SaldoInsuficienteException;
 
 public class Program {
 
@@ -15,7 +16,14 @@ public class Program {
 		Conta cp = new ContaPoupanca(cliente);
 
 		cc.depositar(100);
-		cc.transferir(100, cp);
+		
+		
+		try {
+			cc.sacar(100);
+			cc.transferir(200, cp);
+		} catch (SaldoInsuficienteException e) {
+			System.err.println("Prezado cliente, Consulte seu gerente: " +e.getMessage());
+		}
 		
 		cc.imprimirExtrato();
 		cp.imprimirExtrato();

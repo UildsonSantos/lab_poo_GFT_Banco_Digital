@@ -1,5 +1,7 @@
 package entities;
 
+import exceptions.SaldoInsuficienteException;
+
 public abstract class Conta implements IConta {
 	
 	private static final int AGENCIA_PADRAO = 1;
@@ -18,6 +20,9 @@ public abstract class Conta implements IConta {
 
 	@Override
 	public void sacar(double valor){
+		if (valor > this.saldo) {
+			throw new SaldoInsuficienteException("Saldo é insuficiente!\n");
+		}
 		saldo -= valor;		
 	}
 
